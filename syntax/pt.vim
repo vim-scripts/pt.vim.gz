@@ -3,7 +3,7 @@
 " Language:	PrimeTime/TCL
 " Maintainer:	Paul Zimmer <pzimmer@cisco.com>
 " Original:	Paul Zimmer <pzimmer@cisco.com>
-" Version:	5.7 (synched to tcl.vim v5.7), Fri Aug  3 09:33:11 PDT 2001
+" Version:	5.8 (synched to tcl.vim v5.8), Thu Feb 21 15:40:35 PST 2002
 "
 "
 
@@ -21,7 +21,8 @@ endif
 if version >= 600
   runtime! syntax/tcl.vim
 else
-  source <sfile>:p:h/tcl.vim
+  "source <sfile>:p:h/tcl.vim
+  source $VIMRUNTIME/syntax/tcl.vim
 endif
 
 
@@ -29,12 +30,12 @@ endif
 " For version 5.7 and earlier: only when not done already
 " For version 5.8 and later: only when an item doesn't have highlighting yet
 if exists("did_pt_syntax_inits")
-  command -nargs=+ HiLink let i = 1
+  command! -nargs=+ HiLink let i = 1
 elseif version < 508
   let did_pt_syntax_inits = 1
-  command -nargs=+ HiLink hi link <args>
+  command! -nargs=+ HiLink hi link <args>
 else
-  command -nargs=+ HiLink hi def link <args>
+  command! -nargs=+ HiLink hi def link <args>
 endif
 
 
