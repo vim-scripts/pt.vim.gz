@@ -1,39 +1,27 @@
 Fellow vim fans,
 
-These are syntax files on my website (www.zimmerdesignservices.com) for
-Primetime tcl (pt.vim), dc_shell tcl (dctl.vim).  Files
-for einstimer tcl (eins.vim), and booledozer tcl (bool.vim) are also
-available.  Some of these are available on vim-online as well.
+There are syntax files on my website (www.zimmerdesignservices.com) Primetime
+tcl (pt.vim), dc_shell tcl (dctl.vim).  A file for 
+einstimer/booldozer tcl (eins.vim) is also available.
 
 Extract them and put them wherever you like, then you have to hook them in.
-
-Hooking them in via the .vimrc
-------------------------------
-
-This is the way I have done it for years:
-I use the ".pt" suffix for PrimeTime files and ".dctl" for
-dc_shell tcl-mode files.  So, I have the following lines in my .vimrc to
-automatically invoke the correct syntax file:
-
-autocmd BufNewFile,BufRead *.pt set formatoptions=croql tw=0 expandtab autoindent comments=:#
-autocmd BufNewFile,BufRead *.pt source $bin/vim/syntax/pt.vim
-autocmd BufNewFile,BufRead *.dctl set formatoptions=croql tw=0 expandtab autoindent comments=:#
-autocmd BufNewFile,BufRead *.dctl source $bin/vim/syntax/dctl.vim
-
-As you can see, I store the syntax file in directory "$bin/vim/syntax".
-Change this as appropriate.  I also assume that you save the files as 
-"dctl.vim" and "pt.vim" (without the version numbers).
 
 Hooking them in via the ~/.vim directory
 ----------------------------------------
 
-Another way to hook them in (that I have played with but haven't tested
-thoroughly yet) is to put them in the directory "~/.vim/syntax" (save them as
-"dctl.vim" and "pt.vim").  You can then hook them in by creating a
-"filetype.vim" file in "~/.vim" with the following:
+The easiest way to hook them in is to put them in the directory
+"~/.vim/syntax" (save them as "dctl.vim" and "pt.vim").  You can then hook
+them in by creating a "filetype.vim" file in "~/.vim" with the following:
 
 au BufRead,BufNewFile *.dctl            set filetype=dctl
 au BufRead,BufNewFile *.pt            set filetype=pt
+
+On a PC, there are two possibilities for the ".vim" directory.  On my PC, when
+I launch from an icon, it looks at "Documents and Settings\<user>", one level
+above "My Documents".  When I launch from cygwin, my home dir is set to "My
+Documents", so vim looks for vimfiles there.  I suppose I could sort this mess
+out somehow, but the easiest thing is to just create it in two places.
+
 
 If you store your dctl and pt files as .tcl files
 -------------------------------------------------
@@ -50,6 +38,36 @@ Alternatively, you can just issue the command from vim:
 
 : set filetype=dctl
 : set filetype=pt
+
+Hooking them in via the .vimrc
+------------------------------
+
+This is the way I had done it for years, until I discovered the .vim technique:
+I use the ".pt" suffix for PrimeTime files and ".dctl" for
+dc_shell tcl-mode files.  So, I have the following lines in my .vimrc to
+automatically invoke the correct syntax file:
+
+autocmd BufNewFile,BufRead *.pt set formatoptions=croql tw=0 expandtab autoindent comments=:#
+autocmd BufNewFile,BufRead *.pt source $bin/vim/syntax/pt.vim
+autocmd BufNewFile,BufRead *.dctl set formatoptions=croql tw=0 expandtab autoindent comments=:#
+autocmd BufNewFile,BufRead *.dctl source $bin/vim/syntax/dctl.vim
+
+As you can see, I store the syntax file in directory "$bin/vim/syntax".
+Change this as appropriate.  I also assume that you save the files as 
+"dctl.vim" and "pt.vim" (without the version numbers).
+
+Dictionary files
+----------------
+
+The tarballs also include .dict dictionary files.  I hook these in by creating
+a <language>.vim file in .vim/after/syntax, (vimfiles/after/syntax on the PC)
+that looks like this:
+
+set complete=k~/.vim/syntax/pt.dict
+
+To use the dictionary file, just start typing a command and hit ctl-n.  Vim
+will give you the first dictionary word (in this case, command) that matches.
+ctl_n gets the next.  ctl-p goes backwards.  Very handy.
 
 
 Details
@@ -76,4 +94,4 @@ paulzimmer@zimmerdesignservices.com
 
 
 Paul Zimmer 
-1 April, 2004
+6 July, 2006
